@@ -1,37 +1,65 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:test_itbee_solution/page/home/view/home_view.dart';
+import 'package:test_itbee_solution/routes/app_pages.dart';
+import 'package:test_itbee_solution/services/database_service.dart';
+import 'package:test_itbee_solution/theme/app_themes.dart';
+import 'package:test_itbee_solution/theme/theme_controller.dart';
+import 'package:test_itbee_solution/utils/index.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+void initServices() async {
+  print('starting services ...');
 
-void main() {
-  runApp(const MyApp());
+  /// Here is where you put get_storage, hive, shared_pref initialization.
+  /// or moor connection, or whatever that's async.
+
+  print('All services started...');
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  sqfliteFfiInit();
+  var databaseFactory = databaseFactoryFfi;
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const HomeView(),
-    );
+  if (kIsWeb) {
+    // Change default factory on the web
+    databaseFactory = databaseFactoryFfiWeb;
+    // path = 'my_web_web.db';
   }
+  final ThemeController themeController = Get.put(ThemeController());
+  Get.put(DatabaseService.instance);
+  try {
+
+    // final DatabaseService _sad = DatabaseService.instance;
+
+  } catch (e) {
+    print("eeeeeeeeeeeee"); // Catches all types of `Exception` and `Error`.
+    print(e); // Catches all types of `Exception` and `Error`.
+    // _setToken("");
+  }
+  runApp(
+    DismissKeyboard(
+      child: GetMaterialApp(
+        title: 'Flutter Demo',
+        theme:
+            themeController.isDarkMode.value ? AppThemes.dark : AppThemes.light,
+        initialRoute: AppPages.INITIAL,
+        getPages: AppPages.routes,
+        defaultTransition: Transition.rightToLeft,
+        debugShowCheckedModeBanner: false,
+        locale: Locale("vi"),
+        supportedLocales: [Locale("vi")],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        home: const HomeView(),
+      ),
+    ),
+  );
 }
