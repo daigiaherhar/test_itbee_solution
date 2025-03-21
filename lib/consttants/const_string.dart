@@ -11,4 +11,6 @@ abstract class HomeString{
   static const String createDate = "Ngày tạo";
   static const String updateDate = "Ngày cập nhật";
   static const String save = "Lưu";
+  static const String delete = "Xóa";
+  static const String edit = "Cập nhật";
 }

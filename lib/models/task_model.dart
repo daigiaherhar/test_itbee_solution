@@ -35,6 +35,13 @@ class TaskModel {
     return 0;
   }
 
+  bool checkExpired() {
+    if (dueDate - DateTime.now().microsecondsSinceEpoch <= 0) {
+      return true;
+    }
+    return false;
+  }
+
   TaskModel.fromJson(Map<String, dynamic> json)
     : id = json["id"],
       title = json["title"] ?? "",

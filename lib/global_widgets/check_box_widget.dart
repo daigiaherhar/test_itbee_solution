@@ -4,11 +4,17 @@ import 'package:test_itbee_solution/consttants/const_colors.dart';
 import '../models/task_model.dart';
 
 class CheckBoxWidget extends StatefulWidget {
-  CheckBoxWidget({super.key, required this.onCheck, required this.taskModel});
+  CheckBoxWidget({
+    super.key,
+    required this.onCheck,
+    required this.taskModel,
+    this.isOnTap = true,
+  });
 
   // final bool isCheck; // 0 incomplete, 1 complete
   final Function(TaskModel) onCheck; // 0 incomplete, 1 complete
   final TaskModel taskModel;
+  final bool isOnTap;
 
   @override
   State<CheckBoxWidget> createState() => _CheckBoxWidgetState();
@@ -19,7 +25,6 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
 
   @override
   void initState() {
-
     // TODO: implement initState
 
     super.initState();
@@ -39,7 +44,7 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
     isCheck = widget.taskModel.isCheck();
     final width = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: () => handleCheck(),
+      onTap: widget.isOnTap ? () => handleCheck() : null,
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
