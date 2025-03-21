@@ -42,7 +42,7 @@ class DialogCore {
     if (date == null) {
       return dateTime;
     }
-    dateTime = date;
+    // dateTime = date;
     TimeOfDay time =
         await showTimePicker(
           context: Get.context!,
@@ -53,7 +53,15 @@ class DialogCore {
           initialTime: TimeOfDay.now(),
         ) ??
         TimeOfDay.now();
-    dateTime = dateTime.add(Duration(hours: time.hour, minutes: time.minute));
+
+    // dateTime = dateTime.add(Duration(hours: time.hour, minutes: time.minute));
+    dateTime = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      time.hour,
+      time.minute,
+    );
 
     return dateTime;
   }

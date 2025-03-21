@@ -40,8 +40,7 @@ dependencies:
   sqflite_common_ffi_web: ^1.0.0
   google_fonts: ^6.2.1
   path: ^1.9.1
-
-#  flutter_local_notifications: ^19.0.0
+#  flutter_local_notifications: ^17.2.2
 
 dev_dependencies:
   flutter_test:

@@ -39,7 +39,7 @@ class TextFieldCustom extends StatelessWidget {
                 DateTime? dateTime = await DialogCore.showDateTime();
                 if (dateTime != null) {
                   String formattedDate = DateFormat(
-                    "dd-MM-yyyy hh:mm",
+                    "dd-MM-yyyy HH:mm",
                   ).format(dateTime);
                   controller.text = formattedDate;
                 }

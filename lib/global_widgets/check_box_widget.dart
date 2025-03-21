@@ -50,8 +50,8 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
           shape: BoxShape.circle,
           border: Border.all(width: 1, color: Colors.transparent),
         ),
-        height: width * 0.05,
-        width: width * 0.05,
+        height: 40,
+        width: 40,
         child: Container(
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
